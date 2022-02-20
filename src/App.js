@@ -1,9 +1,11 @@
 import React from 'react'
 import './App.css'
+import Header from './components/header/Header'
 
 function App(){
+
   return(
-    <h1 className="m-5">Hello Wordl</h1>
+    <Header/>
   )
 }
 
