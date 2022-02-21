@@ -8,13 +8,13 @@ import { faCommentsDollar } from '@fortawesome/free-solid-svg-icons';
 
 export default function GameBoard() {
 
-    const solution_word = "other"
+    const solution_word = "small"
 
     const [gameState, setGameState] = useState({
         guessWords: [],
         guessColors: [],
         rowIndex: 0,
-        gameStatus : ""
+        gameStatus: ""
     })
 
     const [word, setWord] = useState("")
@@ -24,7 +24,7 @@ export default function GameBoard() {
         debugger;
         if (char === "enter") {
 
-            if(gameState.gameStatus === "WON"){
+            if (gameState.gameStatus === "WON") {
                 return;
             }
 
@@ -35,6 +35,9 @@ export default function GameBoard() {
                 return
             }
         } else if (char === "⌫") {
+            if (gameState.gameStatus === "WON") {
+                return;
+            }
             setWord(function (prev) {
                 return prev.slice(0, prev.length - 1)
             })
@@ -94,9 +97,10 @@ export default function GameBoard() {
                     gameStatus: "WON"
                 }
             })
-            
+
             // alert("success");
-        } else if (allWords.includes(word)) {
+        // } else if (allWords.includes(word)) {
+        } else if (true) {
 
             let sol_word = solution_word;
 
@@ -110,23 +114,102 @@ export default function GameBoard() {
                     let sol_freq = 0;
                     let word_freq = 0;
 
-                    for(let j=0; j< sol_word.length; j++){
-                        if(sol_word[j] === word[i]){
+                    for (let j = i; j < sol_word.length; j++) {
+                        if (sol_word[j] === word[i]) {
                             sol_freq += 1;
                         }
                     }
 
-                    for(let k=0;k<word.length;k++){
-                        if(word[k] === word[i]){
+                    let pos_array = []
+                    for (let k = i; k < word.length; k++) {
+                        if (word[k] === word[i]) {
                             word_freq += 1;
+                            pos_array.push(k)
                         }
-                    }   
-
-                    if(sol_freq >= word_freq){
-                        colors += 'y'
-                    }else{
-                        colors += 'b'
                     }
+
+                    console.log("-----------posarray------------");
+                    console.log(pos_array);
+
+                    debugger
+
+                    // if (word_freq >= sol_freq) {
+                    //     let append = ''
+                    //     for (let x = i; x < sol_word.length; x++) {
+                    //         if (sol_word[x] === word[i]) {
+                    //             append = 'y';
+                    //             break;
+                    //         } else {
+                    //             append = 'b';
+                    //         }
+                    //     }
+
+                    //     colors += append;
+                    // } else {
+                    //     colors += 'b'
+                    // }
+
+                    if (word_freq > sol_freq) {
+                        let append = ''
+                        for (let x = i; x < pos_array.length + i; x++) {
+                            if (word[pos_array[x]] === sol_word[pos_array[x]]) {
+                                append = 'b'
+                                break;
+                            } else {
+                                append = 'y'
+                            }
+                        }
+                        colors += append;
+                    } else if (word_freq === sol_freq) {
+                        let append = ''
+                        if (word[i] === sol_word[i]) {
+                            append = 'g'
+                        } else {
+                            append = 'y'
+                        }
+                        colors += append;
+                    } else if (word_freq < sol_freq) {
+                        colors += 'y';
+                    }
+
+                    console.log(`i----${i}-----color${colors}`)
+
+
+                    // let append = ''
+                    // for(let x=i;x<sol_word.length;x++){
+                    //     if(sol_word[x] === word[i]){
+                    //         append = 'y';
+                    //         break;
+                    //     }else{
+                    //         append = 'b';
+                    //     }
+                    // }
+
+                    // colors +=append;
+
+                    // if(sol_freq >= word_freq){
+                    //     colors += 'y'
+                    // }else{
+                    //     colors += 'b'
+                    // }
+
+                    // debugger
+                    // let flag= 0 ;
+                    // for(let x=i; x<=word.length;x++){
+                    //     for(let y=i;y<sol_word.length;y++){
+                    //         if(word[x]===sol_word[y]){
+                    //             colors += 'y';
+                    //             flag = 1;
+                    //             break;
+                    //         }else{
+                    //             colors += 'b'
+                    //         }
+                    //     }
+
+                    //     if(flag===1){
+                    //         break;
+                    //     }
+                    // }
 
                     console.log(`-------${word[i]}----${sol_freq}---${word_freq}---`)
 

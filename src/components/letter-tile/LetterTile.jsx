@@ -2,8 +2,8 @@ import React from 'react';
 
 function LetterTile({letter, colorstate}){
 
-    console.log("colorstate..................")
-    console.log(colorstate);
+    // console.log("colorstate..................")
+    // console.log(colorstate);
 
     let colorClass = "";
 
