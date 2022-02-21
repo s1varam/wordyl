@@ -9,7 +9,7 @@ export default function Header() {
             <div>
                 <FontAwesomeIcon icon={faCircleQuestion} className="flex-none ml-2 p-2 w-5 h-5 text-black" />
             </div>
-            <div className="text-xl font-bold">Wordl</div>
+            <div className="text-xl font-bold">Test</div>
             <div>
                 <FontAwesomeIcon icon={faChartLine} className="flex-none ml-2 p-2 w-5 h-5 text-black" />
                 <FontAwesomeIcon icon={faGear} className="flex-none ml-2 p-2 w-5 h-5 text-black" />
