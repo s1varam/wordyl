@@ -8,7 +8,7 @@ import { faCommentsDollar } from '@fortawesome/free-solid-svg-icons';
 
 export default function GameBoard() {
 
-    const solution_word = "small"
+    const solution_word = "abaac"
 
     const [gameState, setGameState] = useState({
         guessWords: [],
@@ -114,7 +114,7 @@ export default function GameBoard() {
                     let sol_freq = 0;
                     let word_freq = 0;
 
-                    for (let j = i; j < sol_word.length; j++) {
+                    for (let j = 0; j < sol_word.length; j++) {
                         if (sol_word[j] === word[i]) {
                             sol_freq += 1;
                         }
@@ -151,20 +151,34 @@ export default function GameBoard() {
 
                     if (word_freq > sol_freq) {
                         let append = ''
+                        let itr = 0
                         for (let x = i; x < pos_array.length + i; x++) {
-                            if (word[pos_array[x]] === sol_word[pos_array[x]]) {
+                            if (word[pos_array[itr]] === sol_word[pos_array[itr]]) {
                                 append = 'b'
                                 break;
                             } else {
                                 append = 'y'
                             }
+                            itr+=1;
                         }
                         colors += append;
                     } else if (word_freq === sol_freq) {
-                        let append = ''
-                        if (word[i] === sol_word[i]) {
+
+                        let append = '';
+                        let proceed = true;
+
+                        for(let z=0;z<i;z++){
+                            if(word[z] === word[i]){
+                                append = 'b'
+                                proceed = false;
+                                break;
+                            }
+                        }
+
+                        
+                        if (proceed && word[i] === sol_word[i]) {
                             append = 'g'
-                        } else {
+                        } else if(proceed){
                             append = 'y'
                         }
                         colors += append;
