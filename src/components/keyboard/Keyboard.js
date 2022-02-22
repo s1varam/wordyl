@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.css';
 import { keyboardTiles } from '../../constants/keyboardtiles';
 
-export default function Keyboard({ gameState, handleKeyPress }) {
+export default function Keyboard({ state, handleKeyPress }) {
 
     return (
         // <div className="keyboard-rows">
@@ -29,8 +29,11 @@ export default function Keyboard({ gameState, handleKeyPress }) {
             {keyboardTiles.map((row, item) => {
                 return <div>
                 {row.map((char, i) => {
-                    return <button className="bg-slate-100 p-4 m-1" onClick={() => handleKeyPress(char)}>
-                        {char}
+                    return <button 
+                                className={`${state.correctArray.includes(char) ? "bg-green-500 p-4 m-1" : (state.presentArray.includes(char) ? "bg-yellow-500 p-4 m-1" : (state.absentArray.includes(char) ? "bg-slate-500 p-4 m-1" : "bg-slate-100 p-4 m-1"))}`} 
+                                onClick={() => handleKeyPress(char)}
+                            >
+                        {char.toUpperCase()}
                     </button>
                 })}
                 </div>

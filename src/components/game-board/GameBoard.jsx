@@ -5,16 +5,20 @@ import './styles.css'
 import Keyboard from '../keyboard/Keyboard'
 import { allWords } from '../../constants/wordlist'
 import { faCommentsDollar } from '@fortawesome/free-solid-svg-icons';
+import assess from "compare-words";
 
 export default function GameBoard() {
 
-    const solution_word = "abaac"
+    const solution_word = "small"
 
     const [gameState, setGameState] = useState({
         guessWords: [],
         guessColors: [],
         rowIndex: 0,
-        gameStatus: ""
+        gameStatus: "",
+        presentArray: [],
+        correctArray: [],
+        absentArray: [],
     })
 
     const [word, setWord] = useState("")
@@ -99,145 +103,169 @@ export default function GameBoard() {
             })
 
             // alert("success");
-        // } else if (allWords.includes(word)) {
-        } else if (true) {
+        } else if (allWords.includes(word)) {
+        // } else if (true) {
 
             let sol_word = solution_word;
 
-            let colors = '';
-            for (let i = 0; i < word.length; i++) {
-                debugger
-                if (word[i] === sol_word[i]) {
-                    colors += 'g'
-                } else if (sol_word.includes(word[i])) {
+            // let colors = '';
+            // for (let i = 0; i < word.length; i++) {
+            //     debugger
+            //     if (word[i] === sol_word[i]) {
+            //         colors += 'g'
+            //     } else if (sol_word.includes(word[i])) {
 
-                    let sol_freq = 0;
-                    let word_freq = 0;
+            //         let sol_freq = 0;
+            //         let word_freq = 0;
 
-                    for (let j = 0; j < sol_word.length; j++) {
-                        if (sol_word[j] === word[i]) {
-                            sol_freq += 1;
-                        }
-                    }
+            //         for (let j = 0; j < sol_word.length; j++) {
+            //             if (sol_word[j] === word[i]) {
+            //                 sol_freq += 1;
+            //             }
+            //         }
 
-                    let pos_array = []
-                    for (let k = i; k < word.length; k++) {
-                        if (word[k] === word[i]) {
-                            word_freq += 1;
-                            pos_array.push(k)
-                        }
-                    }
+            //         let pos_array = []
+            //         for (let k = i; k < word.length; k++) {
+            //             if (word[k] === word[i]) {
+            //                 word_freq += 1;
+            //                 pos_array.push(k)
+            //             }
+            //         }
 
-                    console.log("-----------posarray------------");
-                    console.log(pos_array);
+            //         console.log("-----------posarray------------");
+            //         console.log(pos_array);
 
-                    debugger
+            //         debugger
 
-                    // if (word_freq >= sol_freq) {
-                    //     let append = ''
-                    //     for (let x = i; x < sol_word.length; x++) {
-                    //         if (sol_word[x] === word[i]) {
-                    //             append = 'y';
-                    //             break;
-                    //         } else {
-                    //             append = 'b';
-                    //         }
-                    //     }
+            //         // if (word_freq >= sol_freq) {
+            //         //     let append = ''
+            //         //     for (let x = i; x < sol_word.length; x++) {
+            //         //         if (sol_word[x] === word[i]) {
+            //         //             append = 'y';
+            //         //             break;
+            //         //         } else {
+            //         //             append = 'b';
+            //         //         }
+            //         //     }
 
-                    //     colors += append;
-                    // } else {
-                    //     colors += 'b'
-                    // }
+            //         //     colors += append;
+            //         // } else {
+            //         //     colors += 'b'
+            //         // }
 
-                    if (word_freq > sol_freq) {
-                        let append = ''
-                        let itr = 0
-                        for (let x = i; x < pos_array.length + i; x++) {
-                            if (word[pos_array[itr]] === sol_word[pos_array[itr]]) {
-                                append = 'b'
-                                break;
-                            } else {
-                                append = 'y'
-                            }
-                            itr+=1;
-                        }
-                        colors += append;
-                    } else if (word_freq === sol_freq) {
+            //         if (word_freq > sol_freq) {
+            //             let append = ''
+            //             let itr = 0
+            //             for (let x = i; x < pos_array.length + i; x++) {
+            //                 if (word[pos_array[itr]] === sol_word[pos_array[itr]]) {
+            //                     append = 'b'
+            //                     break;
+            //                 } else {
+            //                     append = 'y'
+            //                 }
+            //                 itr+=1;
+            //             }
+            //             colors += append;
+            //         } else if (word_freq === sol_freq) {
 
-                        let append = '';
-                        let proceed = true;
+            //             let append = '';
+            //             let proceed = true;
 
-                        for(let z=0;z<i;z++){
-                            if(word[z] === word[i]){
-                                append = 'b'
-                                proceed = false;
-                                break;
-                            }
-                        }
+            //             for(let z=0;z<i;z++){
+            //                 if(word[z] === word[i]){
+            //                     append = 'b'
+            //                     proceed = false;
+            //                     break;
+            //                 }
+            //             }
 
                         
-                        if (proceed && word[i] === sol_word[i]) {
-                            append = 'g'
-                        } else if(proceed){
-                            append = 'y'
-                        }
-                        colors += append;
-                    } else if (word_freq < sol_freq) {
+            //             if (proceed && word[i] === sol_word[i]) {
+            //                 append = 'g'
+            //             } else if(proceed){
+            //                 append = 'y'
+            //             }
+            //             colors += append;
+            //         } else if (word_freq < sol_freq) {
+            //             colors += 'y';
+            //         }
+
+            //         console.log(`i----${i}-----color${colors}`)
+
+
+            //         // let append = ''
+            //         // for(let x=i;x<sol_word.length;x++){
+            //         //     if(sol_word[x] === word[i]){
+            //         //         append = 'y';
+            //         //         break;
+            //         //     }else{
+            //         //         append = 'b';
+            //         //     }
+            //         // }
+
+            //         // colors +=append;
+
+            //         // if(sol_freq >= word_freq){
+            //         //     colors += 'y'
+            //         // }else{
+            //         //     colors += 'b'
+            //         // }
+
+            //         // debugger
+            //         // let flag= 0 ;
+            //         // for(let x=i; x<=word.length;x++){
+            //         //     for(let y=i;y<sol_word.length;y++){
+            //         //         if(word[x]===sol_word[y]){
+            //         //             colors += 'y';
+            //         //             flag = 1;
+            //         //             break;
+            //         //         }else{
+            //         //             colors += 'b'
+            //         //         }
+            //         //     }
+
+            //         //     if(flag===1){
+            //         //         break;
+            //         //     }
+            //         // }
+
+            //         console.log(`-------${word[i]}----${sol_freq}---${word_freq}---`)
+
+            //         // sol_word = sol_word.replace(sol_word[i], '0')
+            //         // colors += 'y'
+            //     } else {
+            //         colors += 'b'
+            //     }
+
+                let result = assess(sol_word,word);
+                console.log(result);
+
+                let colors = "";
+
+                let corrArray = [], presArray = [], absArray = [];
+
+                for(let i=0; i<result.length; i++) {
+                    if(result[i][1]==="correct"){
+                        colors += 'g';
+                        corrArray.push(result[i][0]);
+                    }else if(result[i][1]==="present"){
                         colors += 'y';
+                        presArray.push(result[i][0]);
+                    }else if(result[i][1]==="absent"){
+                        colors += 'b';
+                        absArray.push(result[i][0])
                     }
-
-                    console.log(`i----${i}-----color${colors}`)
-
-
-                    // let append = ''
-                    // for(let x=i;x<sol_word.length;x++){
-                    //     if(sol_word[x] === word[i]){
-                    //         append = 'y';
-                    //         break;
-                    //     }else{
-                    //         append = 'b';
-                    //     }
-                    // }
-
-                    // colors +=append;
-
-                    // if(sol_freq >= word_freq){
-                    //     colors += 'y'
-                    // }else{
-                    //     colors += 'b'
-                    // }
-
-                    // debugger
-                    // let flag= 0 ;
-                    // for(let x=i; x<=word.length;x++){
-                    //     for(let y=i;y<sol_word.length;y++){
-                    //         if(word[x]===sol_word[y]){
-                    //             colors += 'y';
-                    //             flag = 1;
-                    //             break;
-                    //         }else{
-                    //             colors += 'b'
-                    //         }
-                    //     }
-
-                    //     if(flag===1){
-                    //         break;
-                    //     }
-                    // }
-
-                    console.log(`-------${word[i]}----${sol_freq}---${word_freq}---`)
-
-                    // sol_word = sol_word.replace(sol_word[i], '0')
-                    // colors += 'y'
-                } else {
-                    colors += 'b'
                 }
-            }
+
+            
 
             setGameState(function (prev) {
                 return {
                     ...prev,
-                    guessColors: [...prev.guessColors, colors]
+                    guessColors: [...prev.guessColors, colors],
+                    correctArray : [...prev.correctArray, ...corrArray],
+                    presentArray : [...prev.presentArray, ...presArray],
+                    absentArray : [...prev.absentArray, ...absArray],
                 }
             })
 
@@ -286,19 +314,19 @@ export default function GameBoard() {
 
     return (
 
-        <div className='flex flex-col justify-center'>
+        <div className='flex flex-col justify-center items-center gap-2'>
 
             <div className='flex-col'>
                 {
                     [0, 1, 2, 3, 4, 5].map((row, item) => {
-                        return <div className='flex'>{[0, 1, 2, 3, 4].map((column, i) => {
-                            return <LetterTile letter={gameState && gameState.guessWords[row] && gameState.guessWords[row][column]} colorstate={gameState && gameState.guessColors[row] && gameState.guessColors[row][column]} />
+                        return <div className='flex justify-center align-middle content-center items-center gap-2 mt-2'>{[0, 1, 2, 3, 4].map((column, i) => {
+                            return <LetterTile className="m-1" letter={gameState && gameState.guessWords[row] && gameState.guessWords[row][column]} colorstate={gameState && gameState.guessColors[row] && gameState.guessColors[row][column]} />
                         })}
                         </div>
                     })
                 }
             </div>
-            <Keyboard handleKeyPress={handleKeyPress} />
+            <Keyboard state={gameState} handleKeyPress={handleKeyPress} />
 
         </div>
 

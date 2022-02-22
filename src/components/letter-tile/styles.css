@@ -1,0 +1,8 @@
+.keytile{
+    width: 60px;
+    height: 60px;
+    border: solid 1px #000;
+    margin-top: 0;
+    padding: 0;
+    text-align: center;
+}

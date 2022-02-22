@@ -8,6 +8,7 @@ export default function Header() {
         <header className="flex items-center justify-between">
             <div>
                 <FontAwesomeIcon icon={faCircleQuestion} className="flex-none ml-2 p-2 w-5 h-5 text-black" />
+                <FontAwesomeIcon icon={faCircleQuestion} className="flex-none ml-2 p-2 w-5 h-5 text-black" />
             </div>
             <div className="text-xl font-bold">Test</div>
             <div>
