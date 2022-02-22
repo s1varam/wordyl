@@ -5,11 +5,15 @@ import './styles.css'
 import Keyboard from '../keyboard/Keyboard'
 import { allWords } from '../../constants/wordlist'
 import { faCommentsDollar } from '@fortawesome/free-solid-svg-icons';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
+import Confetti from 'react-confetti'
 import assess from "compare-words";
 
 export default function GameBoard() {
 
     const solution_word = "small"
+
+    const { width, height } = useWindowDimensions();
 
     const [gameState, setGameState] = useState({
         guessWords: [],
@@ -104,7 +108,7 @@ export default function GameBoard() {
 
             // alert("success");
         } else if (allWords.includes(word)) {
-        // } else if (true) {
+            // } else if (true) {
 
             let sol_word = solution_word;
 
@@ -179,7 +183,7 @@ export default function GameBoard() {
             //                 }
             //             }
 
-                        
+
             //             if (proceed && word[i] === sol_word[i]) {
             //                 append = 'g'
             //             } else if(proceed){
@@ -237,35 +241,35 @@ export default function GameBoard() {
             //         colors += 'b'
             //     }
 
-                let result = assess(sol_word,word);
-                console.log(result);
+            let result = assess(sol_word, word);
+            console.log(result);
 
-                let colors = "";
+            let colors = "";
 
-                let corrArray = [], presArray = [], absArray = [];
+            let corrArray = [], presArray = [], absArray = [];
 
-                for(let i=0; i<result.length; i++) {
-                    if(result[i][1]==="correct"){
-                        colors += 'g';
-                        corrArray.push(result[i][0]);
-                    }else if(result[i][1]==="present"){
-                        colors += 'y';
-                        presArray.push(result[i][0]);
-                    }else if(result[i][1]==="absent"){
-                        colors += 'b';
-                        absArray.push(result[i][0])
-                    }
+            for (let i = 0; i < result.length; i++) {
+                if (result[i][1] === "correct") {
+                    colors += 'g';
+                    corrArray.push(result[i][0]);
+                } else if (result[i][1] === "present") {
+                    colors += 'y';
+                    presArray.push(result[i][0]);
+                } else if (result[i][1] === "absent") {
+                    colors += 'b';
+                    absArray.push(result[i][0])
                 }
+            }
 
-            
+
 
             setGameState(function (prev) {
                 return {
                     ...prev,
                     guessColors: [...prev.guessColors, colors],
-                    correctArray : [...prev.correctArray, ...corrArray],
-                    presentArray : [...prev.presentArray, ...presArray],
-                    absentArray : [...prev.absentArray, ...absArray],
+                    correctArray: [...prev.correctArray, ...corrArray],
+                    presentArray: [...prev.presentArray, ...presArray],
+                    absentArray: [...prev.absentArray, ...absArray],
                 }
             })
 
@@ -313,22 +317,29 @@ export default function GameBoard() {
     console.log(gameState);
 
     return (
+        <>
+            {gameState.gameStatus === "WON" && <Confetti
+                width={width}
+                height={height}
+                numberOfPieces={1000}
+                recycle={false}
+            />}
+            <div className='flex flex-col justify-around items-center h-game'>
 
-        <div className='flex flex-col justify-around items-center h-game'>
+                <div className='flex-col'>
+                    {
+                        [0, 1, 2, 3, 4, 5].map((row, item) => {
+                            return <div className='flex justify-center align-middle content-center items-center gap-2 mt-2'>{[0, 1, 2, 3, 4].map((column, i) => {
+                                return <LetterTile className="m-1" letter={gameState && gameState.guessWords[row] && gameState.guessWords[row][column]} colorstate={gameState && gameState.guessColors[row] && gameState.guessColors[row][column]} />
+                            })}
+                            </div>
+                        })
+                    }
+                </div>
+                <Keyboard state={gameState} handleKeyPress={handleKeyPress} />
 
-            <div className='flex-col'>
-                {
-                    [0, 1, 2, 3, 4, 5].map((row, item) => {
-                        return <div className='flex justify-center align-middle content-center items-center gap-2 mt-2'>{[0, 1, 2, 3, 4].map((column, i) => {
-                            return <LetterTile className="m-1" letter={gameState && gameState.guessWords[row] && gameState.guessWords[row][column]} colorstate={gameState && gameState.guessColors[row] && gameState.guessColors[row][column]} />
-                        })}
-                        </div>
-                    })
-                }
             </div>
-            <Keyboard state={gameState} handleKeyPress={handleKeyPress} />
-
-        </div>
+        </>
 
 
     )
