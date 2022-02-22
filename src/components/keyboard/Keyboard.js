@@ -27,10 +27,10 @@ export default function Keyboard({ state, handleKeyPress }) {
 
         <div>
             {keyboardTiles.map((row, item) => {
-                return <div>
+                return <div className="flex justify-center">
                 {row.map((char, i) => {
                     return <button 
-                                className={`${state.correctArray.includes(char) ? "bg-green-500 p-4 m-1" : (state.presentArray.includes(char) ? "bg-yellow-500 p-4 m-1" : (state.absentArray.includes(char) ? "bg-slate-500 p-4 m-1" : "bg-slate-100 p-4 m-1"))}`} 
+                                className={`${state.correctArray.includes(char) ? "bg-keyCorrect p-2 m-1 text-lg" : (state.presentArray.includes(char) ? "bg-keyPresent p-2 m-1 text-lg" : (state.absentArray.includes(char) ? "bg-keyAbsent p-2 m-1 text-lg" : "bg-keyboardBg p-2 m-1 text-lg"))}`} 
                                 onClick={() => handleKeyPress(char)}
                             >
                         {char.toUpperCase()}

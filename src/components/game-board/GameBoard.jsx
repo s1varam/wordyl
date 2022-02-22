@@ -314,7 +314,7 @@ export default function GameBoard() {
 
     return (
 
-        <div className='flex flex-col justify-center items-center gap-2'>
+        <div className='flex flex-col justify-around items-center h-game'>
 
             <div className='flex-col'>
                 {

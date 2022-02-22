@@ -8,14 +8,14 @@ function LetterTile({letter, colorstate}){
 
     let colorClass = "";
 
-    colorstate === 'y' ? colorClass = 'bg-yellow-500 border-yellow-500' : (colorstate === 'b' ? colorClass = 'bg-slate-500 border-slate-500' : colorClass = 'bg-green-500 border-green-500');
+    colorstate === 'y' ? colorClass = 'bg-keyPresent border-keyPresent text-white' : (colorstate === 'b' ? colorClass = 'bg-keyAbsent border-keyAbsent text-white' : colorClass = 'bg-keyCorrect border-keyCorrect text-white');
 
     if(colorstate === undefined){
         colorClass ='bg-black-500'; 
     }
 
     return(
-        <div className={`keytile text-5xl font-bold ${colorClass}`}>{letter && letter.toUpperCase()}</div>
+        <div className={`keytile text-5xl font-bold  ${colorClass}`}>{letter && letter.toUpperCase()}</div>
     )
 }
 
