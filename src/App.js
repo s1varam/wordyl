@@ -7,8 +7,8 @@ function App() {
 
   return (
     <>
-      <Header className="h-header"/>
-      <GameBoard className=""/>
+      {/* <Header className="h-header"/> */}
+      <GameBoard className="" />
     </>
   )
 }

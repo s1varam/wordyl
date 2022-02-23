@@ -8,6 +8,8 @@ import { faCommentsDollar } from '@fortawesome/free-solid-svg-icons';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import Confetti from 'react-confetti'
 import assess from "compare-words";
+import Header from '../header/Header'
+import Modal from '../modal/Modal'
 
 export default function GameBoard() {
 
@@ -24,6 +26,16 @@ export default function GameBoard() {
         correctArray: [],
         absentArray: [],
     })
+
+    const [showInfo, setShowInfo] = useState(false);
+
+    function openInfo(){
+        setShowInfo(true);
+    }
+
+    function closeInfo(){
+        setShowInfo(false);
+    }
 
     const [word, setWord] = useState("")
 
@@ -318,6 +330,8 @@ export default function GameBoard() {
 
     return (
         <>
+            {showInfo && <Modal close={closeInfo}/>}
+            <Header className="h-header" showInfo={openInfo}/>
             {gameState.gameStatus === "WON" && <Confetti
                 width={width}
                 height={height}
@@ -326,7 +340,7 @@ export default function GameBoard() {
             />}
             <div className='flex flex-col justify-around items-center h-game'>
 
-                <div className='flex-col'>
+                <div className='flex-col xl:mb-4 xl:mt-6'>
                     {
                         [0, 1, 2, 3, 4, 5].map((row, item) => {
                             return <div className='flex gap-2 mt-2'>{[0, 1, 2, 3, 4].map((column, i) => {
@@ -346,4 +360,5 @@ export default function GameBoard() {
 
     )
 }
+
 
