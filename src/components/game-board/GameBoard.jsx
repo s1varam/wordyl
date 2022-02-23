@@ -25,6 +25,7 @@ export default function GameBoard() {
         presentArray: [],
         correctArray: [],
         absentArray: [],
+        word: "",
     })
 
     const [showInfo, setShowInfo] = useState(false);
@@ -37,7 +38,7 @@ export default function GameBoard() {
         setShowInfo(false);
     }
 
-    const [word, setWord] = useState("")
+    // const [word, setWord] = useState("")
 
     function handleKeyPress(char) {
         // alert(char);
@@ -48,8 +49,8 @@ export default function GameBoard() {
                 return;
             }
 
-            if (word.length === 5) {
-                validate(word);
+            if (gameState.word.length === 5) {
+                validate(gameState.word);
             } else {
                 alert("not enough characters")
                 return
@@ -58,26 +59,26 @@ export default function GameBoard() {
             if (gameState.gameStatus === "WON") {
                 return;
             }
-            setWord(function (prev) {
-                return prev.slice(0, prev.length - 1)
-            })
+
+            let newWord  = gameState.word.slice(0, gameState.word.length - 1)
+            enterCurrentText(newWord)
             return
         }
 
-        if (word.length >= 5) {
+        if (gameState.word.length >= 5) {
             return;
         } else {
-            setWord(function (prev) {
+            let wordTest = ""
+            // setGameState(function (prev) {
                 debugger
-                if (prev === "") {
-                    return char
+                if (gameState.word === "") {
+                    wordTest = char;
                 } else {
-                    return prev + char
+                    wordTest = gameState.word + char
                 }
 
-            })
             // console.log(word);
-            // enterCurrentText(word)
+            enterCurrentText(wordTest)
             // setGameState(function(prev){
             //     return {
             //         guessWords : word
@@ -87,23 +88,40 @@ export default function GameBoard() {
     }
 
 
+    function enterCurrentText(word) {
+        debugger
+        let guessWords = gameState.guessWords;
+        let rowIndex = gameState.rowIndex;
+
+        guessWords[rowIndex] = word;
+
+        let newGameState = {
+            ...gameState,
+            "guessWords": guessWords,
+            "word": word
+        }
+
+        setGameState(newGameState);
+    }
+
+
     function validate(word) {
 
 
 
 
 
-        if (word === solution_word) {
+        if (gameState.word === solution_word) {
 
             let sol_word = solution_word;
 
             let colors = '';
-            for (let i = 0; i < word.length; i++) {
+            for (let i = 0; i < gameState.word.length; i++) {
                 debugger
-                if (word[i] === sol_word[i]) {
+                if (gameState.word[i] === sol_word[i]) {
                     colors += 'g'
-                } else if (sol_word.includes(word[i])) {
-                    sol_word = sol_word.replace(word[i], '0')
+                } else if (sol_word.includes(gameState.word[i])) {
+                    sol_word = sol_word.replace(gameState.word[i], '0')
                     colors += 'y'
                 } else {
                     colors += 'b'
@@ -119,30 +137,30 @@ export default function GameBoard() {
             })
 
             // alert("success");
-        } else if (allWords.includes(word)) {
+        } else if (allWords.includes(gameState.word)) {
             // } else if (true) {
 
             let sol_word = solution_word;
 
             // let colors = '';
-            // for (let i = 0; i < word.length; i++) {
+            // for (let i = 0; i < gameState.word.length; i++) {
             //     debugger
-            //     if (word[i] === sol_word[i]) {
+            //     if (gameState.word[i] === sol_word[i]) {
             //         colors += 'g'
-            //     } else if (sol_word.includes(word[i])) {
+            //     } else if (sol_word.includes(gameState.word[i])) {
 
             //         let sol_freq = 0;
             //         let word_freq = 0;
 
             //         for (let j = 0; j < sol_word.length; j++) {
-            //             if (sol_word[j] === word[i]) {
+            //             if (sol_word[j] === gameState.word[i]) {
             //                 sol_freq += 1;
             //             }
             //         }
 
             //         let pos_array = []
-            //         for (let k = i; k < word.length; k++) {
-            //             if (word[k] === word[i]) {
+            //         for (let k = i; k < gameState.word.length; k++) {
+            //             if (gameState.word[k] === gameState.word[i]) {
             //                 word_freq += 1;
             //                 pos_array.push(k)
             //             }
@@ -156,7 +174,7 @@ export default function GameBoard() {
             //         // if (word_freq >= sol_freq) {
             //         //     let append = ''
             //         //     for (let x = i; x < sol_word.length; x++) {
-            //         //         if (sol_word[x] === word[i]) {
+            //         //         if (sol_word[x] === gameState.word[i]) {
             //         //             append = 'y';
             //         //             break;
             //         //         } else {
@@ -173,7 +191,7 @@ export default function GameBoard() {
             //             let append = ''
             //             let itr = 0
             //             for (let x = i; x < pos_array.length + i; x++) {
-            //                 if (word[pos_array[itr]] === sol_word[pos_array[itr]]) {
+            //                 if (gameState.word[pos_array[itr]] === sol_word[pos_array[itr]]) {
             //                     append = 'b'
             //                     break;
             //                 } else {
@@ -188,7 +206,7 @@ export default function GameBoard() {
             //             let proceed = true;
 
             //             for(let z=0;z<i;z++){
-            //                 if(word[z] === word[i]){
+            //                 if(gameState.word[z] === gameState.word[i]){
             //                     append = 'b'
             //                     proceed = false;
             //                     break;
@@ -196,7 +214,7 @@ export default function GameBoard() {
             //             }
 
 
-            //             if (proceed && word[i] === sol_word[i]) {
+            //             if (proceed && gameState.word[i] === sol_word[i]) {
             //                 append = 'g'
             //             } else if(proceed){
             //                 append = 'y'
@@ -211,7 +229,7 @@ export default function GameBoard() {
 
             //         // let append = ''
             //         // for(let x=i;x<sol_word.length;x++){
-            //         //     if(sol_word[x] === word[i]){
+            //         //     if(sol_word[x] === gameState.word[i]){
             //         //         append = 'y';
             //         //         break;
             //         //     }else{
@@ -229,9 +247,9 @@ export default function GameBoard() {
 
             //         // debugger
             //         // let flag= 0 ;
-            //         // for(let x=i; x<=word.length;x++){
+            //         // for(let x=i; x<=gameState.word.length;x++){
             //         //     for(let y=i;y<sol_word.length;y++){
-            //         //         if(word[x]===sol_word[y]){
+            //         //         if(gameState.word[x]===sol_word[y]){
             //         //             colors += 'y';
             //         //             flag = 1;
             //         //             break;
@@ -245,7 +263,7 @@ export default function GameBoard() {
             //         //     }
             //         // }
 
-            //         console.log(`-------${word[i]}----${sol_freq}---${word_freq}---`)
+            //         console.log(`-------${gameState.word[i]}----${sol_freq}---${word_freq}---`)
 
             //         // sol_word = sol_word.replace(sol_word[i], '0')
             //         // colors += 'y'
@@ -253,7 +271,7 @@ export default function GameBoard() {
             //         colors += 'b'
             //     }
 
-            let result = assess(sol_word, word);
+            let result = assess(sol_word, gameState.word);
             console.log(result);
 
             let colors = "";
@@ -292,36 +310,28 @@ export default function GameBoard() {
                     rowIndex: count + 1
                 }
             })
-            setWord("")
+            setGameState(function (prev){
+                return {
+                    ...prev,
+                    word : ""
+                }
+            })
         } else {
             alert("not a valid word");
         }
     }
 
 
-    function enterCurrentText(word) {
-        debugger
-        let guessWords = gameState.guessWords;
-        let rowIndex = gameState.rowIndex;
 
-        guessWords[rowIndex] = word;
-
-        let newGameState = {
-            ...gameState,
-            "guessWords": guessWords,
-        }
-
-        setGameState(newGameState);
-    }
 
     // useEffect(function(){
     //     enterCurrentText(word)
     // }, [word]);
 
-    useEffect(() => {
-        console.log(word);
-        enterCurrentText(word);
-    }, [word]);
+    // useEffect(() => {
+    //     console.log(gameState.word);
+    //     enterCurrentText(gameState.word);
+    // }, [gameState.word]);
 
 
 
