@@ -17,24 +17,43 @@ export default function GameBoard() {
 
     const { width, height } = useWindowDimensions();
 
-    const [gameState, setGameState] = useState({
-        guessWords: [],
-        guessColors: [],
-        rowIndex: 0,
-        gameStatus: "",
-        presentArray: [],
-        correctArray: [],
-        absentArray: [],
-        word: "",
-    })
+    const [gameState, setGameState] = useState(JSON.parse(localStorage.getItem('game-progress')));
+
+    useEffect(function () {
+        if (!gameState) {
+            let newGameState = {
+                guessWords: [],
+                guessColors: [],
+                rowIndex: 0,
+                gameStatus: "",
+                presentArray: [],
+                correctArray: [],
+                absentArray: [],
+                word: "",
+            }
+            setGameState(newGameState);
+            localStorage.setItem('game-progress', JSON.stringify(newGameState));
+        }
+    }, [])
+
+    // const [gameState, setGameState] = useState({
+    //     guessWords: [],
+    //     guessColors: [],
+    //     rowIndex: 0,
+    //     gameStatus: "",
+    //     presentArray: [],
+    //     correctArray: [],
+    //     absentArray: [],
+    //     word: "",
+    // })
 
     const [showInfo, setShowInfo] = useState(false);
 
-    function openInfo(){
+    function openInfo() {
         setShowInfo(true);
     }
 
-    function closeInfo(){
+    function closeInfo() {
         setShowInfo(false);
     }
 
@@ -60,7 +79,7 @@ export default function GameBoard() {
                 return;
             }
 
-            let newWord  = gameState.word.slice(0, gameState.word.length - 1)
+            let newWord = gameState.word.slice(0, gameState.word.length - 1)
             enterCurrentText(newWord)
             return
         }
@@ -70,12 +89,12 @@ export default function GameBoard() {
         } else {
             let wordTest = ""
             // setGameState(function (prev) {
-                debugger
-                if (gameState.word === "") {
-                    wordTest = char;
-                } else {
-                    wordTest = gameState.word + char
-                }
+            debugger
+            if (gameState.word === "") {
+                wordTest = char;
+            } else {
+                wordTest = gameState.word + char
+            }
 
             // console.log(word);
             enterCurrentText(wordTest)
@@ -102,6 +121,7 @@ export default function GameBoard() {
         }
 
         setGameState(newGameState);
+        // localStorage.setItem("game-progress", JSON.stringify(newGameState));
     }
 
 
@@ -128,13 +148,22 @@ export default function GameBoard() {
                 }
             }
 
-            setGameState(function (prev) {
-                return {
-                    ...prev,
-                    guessColors: [...prev.guessColors, colors],
-                    gameStatus: "WON"
-                }
-            })
+            let newGameState = {
+                ...gameState,
+                guessColors: [...gameState.guessColors, colors],
+                gameStatus: "WON"
+            }
+
+            setGameState(newGameState);
+            localStorage.setItem("game-progress", JSON.stringify(newGameState));
+
+            // setGameState(function (prev) {
+            //     return {
+            //         ...prev,
+            //         guessColors: [...prev.guessColors, colors],
+            //         gameStatus: "WON"
+            //     }
+            // })
 
             // alert("success");
         } else if (allWords.includes(gameState.word)) {
@@ -292,30 +321,47 @@ export default function GameBoard() {
             }
 
 
+            let count = gameState.rowIndex;
+            let newGameState = {
+                ...gameState,
+                guessColors: [...gameState.guessColors, colors],
+                correctArray: [...gameState.correctArray, ...corrArray],
+                presentArray: [...gameState.presentArray, ...presArray],
+                absentArray: [...gameState.absentArray, ...absArray],
+                rowIndex: count + 1,
+                word: ""
+            }
 
-            setGameState(function (prev) {
-                return {
-                    ...prev,
-                    guessColors: [...prev.guessColors, colors],
-                    correctArray: [...prev.correctArray, ...corrArray],
-                    presentArray: [...prev.presentArray, ...presArray],
-                    absentArray: [...prev.absentArray, ...absArray],
-                }
-            })
+            setGameState(newGameState);
+            localStorage.setItem("game-progress", JSON.stringify(newGameState));
 
-            setGameState(function (prev) {
-                let count = prev.rowIndex;
-                return {
-                    ...prev,
-                    rowIndex: count + 1
-                }
-            })
-            setGameState(function (prev){
-                return {
-                    ...prev,
-                    word : ""
-                }
-            })
+            // setGameState(function (prev) {
+               
+            //     return {
+            //         ...prev,
+            //         guessColors: [...prev.guessColors, colors],
+            //         correctArray: [...prev.correctArray, ...corrArray],
+            //         presentArray: [...prev.presentArray, ...presArray],
+            //         absentArray: [...prev.absentArray, ...absArray],
+            //         rowIndex: count + 1,
+            //         word: ""
+            //     }
+            // })
+
+            // setGameState(function (prev) {
+            //     let count = prev.rowIndex;
+            //     return {
+            //         ...prev,
+            //         rowIndex: count + 1
+            //     }
+            // })
+            // setGameState(function (prev) {
+            //     return {
+            //         ...prev,
+            //         word: ""
+            //     }
+            // })
+            // localStorage.setItem("game-progress", JSON.stringify(gameState));
         } else {
             alert("not a valid word");
         }
@@ -340,9 +386,9 @@ export default function GameBoard() {
 
     return (
         <>
-            {showInfo && <Modal close={closeInfo}/>}
-            <Header className="h-header" showInfo={openInfo}/>
-            {gameState.gameStatus === "WON" && <Confetti
+            {showInfo && <Modal close={closeInfo} />}
+            <Header className="h-header" showInfo={openInfo} />
+            {gameState && (gameState.gameStatus) && (gameState.gameStatus === "WON") && <Confetti
                 width={width}
                 height={height}
                 numberOfPieces={1000}
