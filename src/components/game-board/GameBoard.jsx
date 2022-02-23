@@ -329,8 +329,10 @@ export default function GameBoard() {
                 <div className='flex-col'>
                     {
                         [0, 1, 2, 3, 4, 5].map((row, item) => {
-                            return <div className='flex justify-center align-middle content-center items-center gap-2 mt-2'>{[0, 1, 2, 3, 4].map((column, i) => {
-                                return <LetterTile className="m-1" letter={gameState && gameState.guessWords[row] && gameState.guessWords[row][column]} colorstate={gameState && gameState.guessColors[row] && gameState.guessColors[row][column]} />
+                            return <div className='flex gap-2 mt-2'>{[0, 1, 2, 3, 4].map((column, i) => {
+                                return <div className='box-tile'>
+                                    <LetterTile className="" letter={gameState && gameState.guessWords[row] && gameState.guessWords[row][column]} colorstate={gameState && gameState.guessColors[row] && gameState.guessColors[row][column]} />
+                                </div>
                             })}
                             </div>
                         })

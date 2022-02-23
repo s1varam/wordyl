@@ -1,8 +1,14 @@
 .keytile{
+    /* border: solid 1px #000; */
+    /* text-align: center; */
+}
+
+.tile-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     width: 60px;
     height: 60px;
-    border: solid 1px #000;
-    margin-top: 0;
-    padding: 0;
-    text-align: center;
+    /* border: solid 1px #000; */
 }
