@@ -9,8 +9,10 @@ import useWindowDimensions from '../../hooks/useWindowDimensions';
 import Confetti from 'react-confetti'
 import assess from "compare-words";
 import Header from '../header/Header'
-import Modal from '../modal/Modal'
+import Modal from '../modal/Info'
+import Details from '../modal/details'
 import cogoToast from 'cogo-toast';
+
 
 export default function GameBoard() {
 
@@ -49,6 +51,7 @@ export default function GameBoard() {
     // })
 
     const [showInfo, setShowInfo] = useState(false);
+    const [showDetails, setShowDetails] = useState(false);
 
     function openInfo() {
         setShowInfo(true);
@@ -57,6 +60,19 @@ export default function GameBoard() {
     function closeInfo() {
         setShowInfo(false);
     }
+
+    function openDetails() {
+        setShowDetails(true);
+    }
+
+    function closeDetails() {
+        setShowDetails(false);
+    }
+
+    function openGithub(){
+        window.open('https://github.com/s1varam/wordl');
+    }
+
 
     // const [word, setWord] = useState("")
 
@@ -433,7 +449,8 @@ export default function GameBoard() {
     return (
         <div className="select-none">
             {showInfo && <Modal close={closeInfo} />}
-            <Header className="h-header" showInfo={openInfo} />
+            {showDetails && <Details close={closeDetails} showGithub={openGithub}/>}
+            <Header className="h-header" showInfo={openInfo} showDetails={openDetails}/>
             {gameState && (gameState.gameStatus) && (gameState.gameStatus === "WON") && <Confetti
                 width={width}
                 height={height}
