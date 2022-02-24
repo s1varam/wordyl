@@ -12,6 +12,7 @@ import Header from '../header/Header'
 import Modal from '../modal/Info'
 import Details from '../modal/details'
 import cogoToast from 'cogo-toast';
+import { motion } from "framer-motion"
 
 
 export default function GameBoard() {
@@ -33,6 +34,9 @@ export default function GameBoard() {
                 correctArray: [],
                 absentArray: [],
                 word: "",
+                guessesChart: [{
+                    1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0
+                }]
             }
             setGameState(newGameState);
             localStorage.setItem('game-progress', JSON.stringify(newGameState));
@@ -93,7 +97,7 @@ export default function GameBoard() {
                 validate(gameState.word);
             } else {
                 cogoToast.info('not enough characters', {
-                    position: 'bottom-center'
+                    position: 'top-center'
                 });
                 // alert("not enough characters")
                 return
@@ -158,31 +162,31 @@ export default function GameBoard() {
 
             switch (count) {
                 case 1: cogoToast.info('Mindblowing :o', {
-                    position: 'bottom-center'
+                    position: 'top-center'
                 });
                     break;
                 case 2: cogoToast.info('Too good!', {
-                    position: 'bottom-center'
+                    position: 'top-center'
                 });
                     break;
                 case 3: cogoToast.info('Impressive!', {
-                    position: 'bottom-center'
+                    position: 'top-center'
                 });
                     break;
                 case 4: cogoToast.info('Splendid!', {
-                    position: 'bottom-center'
+                    position: 'top-center'
                 });
                     break;
                 case 5: cogoToast.info('Good!', {
-                    position: 'bottom-center'
+                    position: 'top-center'
                 });
                     break;
                 case 6: cogoToast.info('Phewww...', {
-                    position: 'bottom-center'
+                    position: 'top-center'
                 });
                     break;
                 default: cogoToast.info('Good!', {
-                    position: 'bottom-center'
+                    position: 'top-center'
                 });
                     break;
             }
@@ -200,12 +204,19 @@ export default function GameBoard() {
                 }
             }
 
+            
             let newGameState = {
                 ...gameState,
                 guessColors: [...gameState.guessColors, colors],
-                gameStatus: "WON"
+                gameStatus: "WON",
+                guessesChart: {
+                    ...gameState.guessesChart,
+                    [gameState.rowIndex] : gameState.guessesChart[0][gameState.rowIndex+1]+1
+                }
             }
 
+
+            debugger
             setGameState(newGameState);
             localStorage.setItem("game-progress", JSON.stringify(newGameState));
 
@@ -389,7 +400,7 @@ export default function GameBoard() {
 
             if (newGameState.rowIndex === 6) {
                 cogoToast.info('better luck next time :/', {
-                    position: 'bottom-center'
+                    position: 'top-center'
                 });
             }
 
@@ -423,7 +434,7 @@ export default function GameBoard() {
             // localStorage.setItem("game-progress", JSON.stringify(gameState));
         } else {
             cogoToast.info('not a valid word', {
-                position: 'bottom-center'
+                position: 'top-center'
             });
             // alert("not a valid word");
         }
@@ -447,25 +458,25 @@ export default function GameBoard() {
     console.log(gameState);
 
     return (
-        <div className="select-none">
+        <motion.div className="select-none dark:bg-black h-full transition-colors duration-500" >
             {showInfo && <Modal close={closeInfo} />}
             {showDetails && <Details close={closeDetails} showGithub={openGithub}/>}
-            <Header className="h-header" showInfo={openInfo} showDetails={openDetails}/>
+            <Header className="header" showInfo={openInfo} showDetails={openDetails}/>
             {gameState && (gameState.gameStatus) && (gameState.gameStatus === "WON") && <Confetti
                 width={width}
                 height={height}
                 numberOfPieces={1000}
                 recycle={false}
             />}
-            <div className='flex flex-col justify-around items-center h-game'>
+            <div className='flex flex-col justify-around items-center flex-container xl:mt-4'>
 
                 <div className='flex-col xl:mb-4 xl:mt-6'>
                     {
                         [0, 1, 2, 3, 4, 5].map((row, item) => {
                             return <div className='flex gap-2 mt-2'>{[0, 1, 2, 3, 4].map((column, i) => {
-                                return <div className='box-tile'>
+                                return <motion.div className='border border-solid border-black dark:border-white'>
                                     <LetterTile className="" letter={gameState && gameState.guessWords[row] && gameState.guessWords[row][column]} colorstate={gameState && gameState.guessColors[row] && gameState.guessColors[row][column]} />
-                                </div>
+                                </motion.div>
                             })}
                             </div>
                         })
@@ -474,7 +485,7 @@ export default function GameBoard() {
                 <Keyboard state={gameState} handleKeyPress={handleKeyPress} />
 
             </div>
-        </div>
+        </motion.div>
 
 
     )

@@ -4,9 +4,9 @@ export default function Modal(props) {
 
     return (
         <>
-            {<div className="bg-slate-200 bg-opacity-90 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0 text-sm select-none">
-                <div className="bg-white p-4 rounded-md text-center w-10/12 xl:w-96 flex flex-col justify-center items-start">
-                    <h1 className="text-lg mb-4 font-bold text-slate-500 self-center">HOW TO PLAY?</h1>
+            {<div className="bg-slate-200 dark:bg-black dark:text-white bg-opacity-40 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0 text-sm select-none">
+                <div className="bg-white dark:bg-neutral-900 p-4 rounded-md text-center w-10/12 xl:w-96 flex flex-col justify-center items-start">
+                    <h1 className="text-lg mb-4 font-bold text-slate-500 dark:text-white self-center">HOW TO PLAY?</h1>
                     <div className="text-justify">Guess the <span className="font-bold">WORDLE</span> in six tries. Each guess must be a valid five-letter word. Hit the enter button to submit. After each guess, the color of the tiles will change to show how close your guess was to the word.</div>
                     {/* <div>Each guess must be a valid five-letter word. Hit the enter button to submit.</div>
                     <div>After each guess, the color of the tiles will change to show how close your guess was to the word.</div> */}

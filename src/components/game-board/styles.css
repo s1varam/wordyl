@@ -1,4 +1,4 @@
-.container{
+/* .container{
     display: flex;
     position: relative;
     flex-direction: column;
@@ -101,4 +101,12 @@
 .absent{
     background: #787c7e;
     color: #fff;
+} */
+
+.header{
+  height: 7vh;
+}
+
+.flex-container{
+  height: calc(100% - 17vh);
 }

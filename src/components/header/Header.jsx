@@ -1,20 +1,23 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo, faChartLine, faGear, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faChartLine, faMoon, faSun, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import {ThemeContext} from '../../context/ThemeContext'
 
 export default function Header(props) {
 
+    const { theme, setTheme } = React.useContext(ThemeContext);
+
     return (
         <>
-        <header className="flex items-center justify-between">
+        <header className="flex items-center justify-between dark:bg-black">
             <div>
-                <FontAwesomeIcon icon={faCircleInfo} className="flex-none ml-2 p-2 w-5 h-5 text-black" onClick={()=>props.showInfo()}/>
-                <FontAwesomeIcon icon={faCircleQuestion} className="flex-none ml-2 p-2 w-5 h-5 text-black" />
+                <FontAwesomeIcon icon={faCircleQuestion} className="flex-none ml-2 p-2 w-5 h-5 text-black dark:text-white" onClick={()=>props.showInfo()}/>
+                <FontAwesomeIcon icon={theme === "dark" ?  faSun : faMoon} className="flex-none ml-2 p-2 w-5 h-5 text-black dark:text-white" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}/>
             </div>
-            <div className="text-xl font-bold">Test</div>
+            <div className="text-xl font-bold dark:text-white">Test</div>
             <div>
-                <FontAwesomeIcon icon={faChartLine} className="flex-none ml-2 p-2 w-5 h-5 text-black" />
-                <FontAwesomeIcon icon={faCircleInfo} className="flex-none ml-2 p-2 w-5 h-5 text-black" onClick={()=>props.showDetails()}/>
+                <FontAwesomeIcon icon={faChartLine} className="flex-none ml-2 p-2 w-5 h-5 text-black dark:text-white" />
+                <FontAwesomeIcon icon={faCircleInfo} className="flex-none ml-2 p-2 w-5 h-5 text-black dark:text-white" onClick={()=>props.showDetails()}/>
             </div>
         </header>
         <div className="border-t"/>
