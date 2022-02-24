@@ -385,7 +385,7 @@ export default function GameBoard() {
     console.log(gameState);
 
     return (
-        <>
+        <div className="select-none">
             {showInfo && <Modal close={closeInfo} />}
             <Header className="h-header" showInfo={openInfo} />
             {gameState && (gameState.gameStatus) && (gameState.gameStatus === "WON") && <Confetti
@@ -411,7 +411,7 @@ export default function GameBoard() {
                 <Keyboard state={gameState} handleKeyPress={handleKeyPress} />
 
             </div>
-        </>
+        </div>
 
 
     )
