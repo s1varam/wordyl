@@ -10,6 +10,7 @@ import Confetti from 'react-confetti'
 import assess from "compare-words";
 import Header from '../header/Header'
 import Modal from '../modal/Modal'
+import cogoToast from 'cogo-toast';
 
 export default function GameBoard() {
 
@@ -68,10 +69,17 @@ export default function GameBoard() {
                 return;
             }
 
+            if (gameState.rowIndex === 6) {
+                return;
+            }
+
             if (gameState.word.length === 5) {
                 validate(gameState.word);
             } else {
-                alert("not enough characters")
+                cogoToast.info('not enough characters', {
+                    position: 'bottom-center'
+                });
+                // alert("not enough characters")
                 return
             }
         } else if (char === "⌫") {
@@ -127,13 +135,41 @@ export default function GameBoard() {
 
     function validate(word) {
 
-
-
-
-
         if (gameState.word === solution_word) {
 
             let sol_word = solution_word;
+            let count = gameState.rowIndex + 1;
+
+            switch (count) {
+                case 1: cogoToast.info('Mindblowing :o', {
+                    position: 'bottom-center'
+                });
+                    break;
+                case 2: cogoToast.info('Too good!', {
+                    position: 'bottom-center'
+                });
+                    break;
+                case 3: cogoToast.info('Impressive!', {
+                    position: 'bottom-center'
+                });
+                    break;
+                case 4: cogoToast.info('Splendid!', {
+                    position: 'bottom-center'
+                });
+                    break;
+                case 5: cogoToast.info('Good!', {
+                    position: 'bottom-center'
+                });
+                    break;
+                case 6: cogoToast.info('Phewww...', {
+                    position: 'bottom-center'
+                });
+                    break;
+                default: cogoToast.info('Good!', {
+                    position: 'bottom-center'
+                });
+                    break;
+            }
 
             let colors = '';
             for (let i = 0; i < gameState.word.length; i++) {
@@ -335,8 +371,15 @@ export default function GameBoard() {
             setGameState(newGameState);
             localStorage.setItem("game-progress", JSON.stringify(newGameState));
 
+            if (newGameState.rowIndex === 6) {
+                cogoToast.info('better luck next time :/', {
+                    position: 'bottom-center'
+                });
+            }
+
+            debugger
             // setGameState(function (prev) {
-               
+
             //     return {
             //         ...prev,
             //         guessColors: [...prev.guessColors, colors],
@@ -363,7 +406,10 @@ export default function GameBoard() {
             // })
             // localStorage.setItem("game-progress", JSON.stringify(gameState));
         } else {
-            alert("not a valid word");
+            cogoToast.info('not a valid word', {
+                position: 'bottom-center'
+            });
+            // alert("not a valid word");
         }
     }
 
