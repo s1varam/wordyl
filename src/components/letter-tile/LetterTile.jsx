@@ -1,6 +1,7 @@
 import React from 'react';
-import './styles.css'
-import { motion } from "framer-motion"
+import './styles.css';
+import { motion } from "framer-motion";
+import 'animate.css';
 
 function LetterTile({ letter, colorstate }) {
 
@@ -16,9 +17,9 @@ function LetterTile({ letter, colorstate }) {
     }
 
     return (
-        <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay: 0.2, duration: 1.5, type: 'tween'}} className={`tile-box error ${colorClass}`} transition-colors duration-500>
-            <motion.div initial={{opacity:0, x: -25}} animate={{opacity:1, x: 0}} transition={{delay: 0.2, duration: 1.5, type: 'tween'}} className={`keytile text-4xl font-bold dark:text-white ${colorClass}`}>{letter && letter.toUpperCase()}</motion.div>
-        </motion.div>
+        <div className={`tile-box error ${colorClass} animate__pulse animate__animated animate__delay-2s`} transition-colors duration-500>
+            <div  className={` keytile text-4xl font-bold dark:text-white ${colorClass}`}>{letter && letter.toUpperCase()}</div>
+        </div>
 
     )
 }
