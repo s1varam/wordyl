@@ -13,6 +13,7 @@ import Modal from '../modal/Info'
 import Details from '../modal/details'
 import cogoToast from 'cogo-toast';
 import { motion } from "framer-motion"
+import ProgressGraph from '../modal/progressgraph'
 
 
 export default function GameBoard() {
@@ -46,7 +47,9 @@ export default function GameBoard() {
                 guessesChart: [{
                     
                 }],
-                solution_word : getRandomWord(0, answerList.length-1)
+                solution_word : getRandomWord(0, answerList.length-1),
+                gamesPlayed: 0,
+                wins: 0,
             }
             setGameState(newGameState);
             localStorage.setItem('game-progress', JSON.stringify(newGameState));
@@ -66,6 +69,7 @@ export default function GameBoard() {
 
     const [showInfo, setShowInfo] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
+    const [showProgressGraph, setShowProgressGraph] = useState(false);
 
     function openInfo() {
         setShowInfo(true);
@@ -81,6 +85,14 @@ export default function GameBoard() {
 
     function closeDetails() {
         setShowDetails(false);
+    }
+
+    function openGraph() {
+        setShowProgressGraph(true);
+    }
+
+    function closeGraph() {
+        setShowProgressGraph(false);
     }
 
     function openGithub(){
@@ -169,6 +181,8 @@ export default function GameBoard() {
 
             let sol_word = gameState.solution_word;
             let count = gameState.rowIndex + 1;
+            let gamesPlayedCount = gameState.gamesPlayed + 1;
+            let winCount = gameState.wins + 1;
 
             switch (count) {
                 case 1: cogoToast.info('Mindblowing :o', {
@@ -226,6 +240,8 @@ export default function GameBoard() {
                 ...gameState,
                 guessColors: [...gameState.guessColors, colors],
                 gameStatus: "WON",
+                gamesPlayed : gamesPlayedCount,
+                wins: winCount,
                 guessesChart: {
                     ...gameState.guessesChart,
                     [gameState.rowIndex+1] : gameStateVal+1
@@ -402,6 +418,8 @@ export default function GameBoard() {
 
 
             let count = gameState.rowIndex;
+            let gamesPlayedCount = gameState.gamesPlayed;
+
             let newGameState = {
                 ...gameState,
                 guessColors: [...gameState.guessColors, colors],
@@ -409,13 +427,15 @@ export default function GameBoard() {
                 presentArray: [...gameState.presentArray, ...presArray],
                 absentArray: [...gameState.absentArray, ...absArray],
                 rowIndex: count + 1,
-                word: ""
+                word: "",
+                gamesPlayed: (count+1 === 6) ? gamesPlayedCount+1: gamesPlayedCount
             }
 
             setGameState(newGameState);
             localStorage.setItem("game-progress", JSON.stringify(newGameState));
 
             if (newGameState.rowIndex === 6) {
+
                 cogoToast.info(` ${sol_word.toUpperCase()}`, {
                     position: 'top-center'
                 });
@@ -424,6 +444,8 @@ export default function GameBoard() {
                         position: 'top-center'
                     });
                 }, 4500)
+
+                
             }
 
             debugger
@@ -500,7 +522,8 @@ export default function GameBoard() {
         <motion.div className="select-none dark:bg-black h-full transition-colors duration-500" >
             {showInfo && <Modal close={closeInfo} />}
             {showDetails && <Details close={closeDetails} showGithub={openGithub}/>}
-            <Header className="header" showInfo={openInfo} showDetails={openDetails} reset={resetGame}/>
+            {showProgressGraph && <ProgressGraph close={closeGraph} showGraph={openGraph} data={gameState.guessesChart} gamesPlayed={gameState.gamesPlayed} wins={gameState.wins}/>}
+            <Header className="header" showInfo={openInfo} showDetails={openDetails} reset={resetGame} showGraph={openGraph}/>
             {gameState && (gameState.gameStatus) && (gameState.gameStatus === "WON") && <Confetti
                 width={width}
                 height={height}

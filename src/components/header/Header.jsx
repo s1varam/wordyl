@@ -17,7 +17,7 @@ export default function Header(props) {
             </div>
             <div className="text-xl font-bold dark:text-white">Test</div>
             <div>
-                <FontAwesomeIcon icon={faChartLine} className="flex-none ml-2 p-2 w-5 h-5 text-black dark:text-white" />
+                <FontAwesomeIcon icon={faChartLine} className="flex-none ml-2 p-2 w-5 h-5 text-black dark:text-white" onClick={()=>props.showGraph()} />
                 <FontAwesomeIcon icon={faCircleInfo} className="flex-none ml-2 p-2 w-5 h-5 text-black dark:text-white" onClick={()=>props.showDetails()}/>
             </div>
         </header>
