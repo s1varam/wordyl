@@ -93,7 +93,7 @@ export default function ProgressGraph(props) {
                         </div>
                         <div className="flex">
                             <p className="mr-1">Win Percentage : </p>
-                            <p>{Math.round(props.wins/props.gamesPlayed*100)}</p>
+                            <p>{isNaN(Math.round(props.wins/props.gamesPlayed*100))? 0: Math.round(props.wins/props.gamesPlayed*100)}</p>
                         </div>
                     </div>
                     <Bar options={options} data={data} className="bar-chart" />
