@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo, faChartLine, faMoon, faSun, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faChartLine, faMoon, faSun, faCircleQuestion, faArrowRotateRight } from '@fortawesome/free-solid-svg-icons';
 import {ThemeContext} from '../../context/ThemeContext'
 
 export default function Header(props) {
@@ -13,6 +13,7 @@ export default function Header(props) {
             <div>
                 <FontAwesomeIcon icon={faCircleQuestion} className="flex-none ml-2 p-2 w-5 h-5 text-black dark:text-white" onClick={()=>props.showInfo()}/>
                 <FontAwesomeIcon icon={theme === "dark" ?  faSun : faMoon} className="flex-none ml-2 p-2 w-5 h-5 text-black dark:text-white" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}/>
+                <FontAwesomeIcon icon={faArrowRotateRight} className="flex-none ml-2 p-2 w-5 h-5 text-black dark:text-white" onClick={()=>props.reset()}/>
             </div>
             <div className="text-xl font-bold dark:text-white">Test</div>
             <div>

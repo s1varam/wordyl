@@ -3,7 +3,7 @@ import LetterTile from '../letter-tile/LetterTile';
 import { wordList } from '../../constants/wordlist'
 import './styles.css'
 import Keyboard from '../keyboard/Keyboard'
-import { allWords } from '../../constants/wordlist'
+import { fiveLetterWords, sixLetterWords, answerList, getRandomWord } from '../../constants/wordlist'
 import { faCommentsDollar } from '@fortawesome/free-solid-svg-icons';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import Confetti from 'react-confetti'
@@ -17,7 +17,16 @@ import { motion } from "framer-motion"
 
 export default function GameBoard() {
 
-    const solution_word = "small"
+    
+
+    // function generateRandomNumber(min, max) { // min and max included 
+    //     return Math.floor(Math.random() * (max - min + 1) + min)
+    // }
+
+    // const index = generateRandomNumber(0, answerList.length-1)
+    // console.log(answerList[index]);
+
+    // const solution_word = answerList[index];
 
     const { width, height } = useWindowDimensions();
 
@@ -35,8 +44,9 @@ export default function GameBoard() {
                 absentArray: [],
                 word: "",
                 guessesChart: [{
-                    1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0
-                }]
+                    
+                }],
+                solution_word : getRandomWord(0, answerList.length-1)
             }
             setGameState(newGameState);
             localStorage.setItem('game-progress', JSON.stringify(newGameState));
@@ -155,9 +165,9 @@ export default function GameBoard() {
 
     function validate(word) {
 
-        if (gameState.word === solution_word) {
+        if (gameState.word === gameState.solution_word) {
 
-            let sol_word = solution_word;
+            let sol_word = gameState.solution_word;
             let count = gameState.rowIndex + 1;
 
             switch (count) {
@@ -204,6 +214,13 @@ export default function GameBoard() {
                 }
             }
 
+            let gameStateVal = 0
+
+            if(gameState.guessesChart[gameState.rowIndex+1]){
+                gameStateVal = gameState.guessesChart[gameState.rowIndex+1]
+            }else{
+                gameStateVal = 0
+            }
             
             let newGameState = {
                 ...gameState,
@@ -211,7 +228,7 @@ export default function GameBoard() {
                 gameStatus: "WON",
                 guessesChart: {
                     ...gameState.guessesChart,
-                    [gameState.rowIndex] : gameState.guessesChart[0][gameState.rowIndex+1]+1
+                    [gameState.rowIndex+1] : gameStateVal+1
                 }
             }
 
@@ -229,10 +246,10 @@ export default function GameBoard() {
             // })
 
             // alert("success");
-        } else if (allWords.includes(gameState.word)) {
+        } else if (fiveLetterWords.includes(gameState.word)) {
             // } else if (true) {
 
-            let sol_word = solution_word;
+            let sol_word = gameState.solution_word;
 
             // let colors = '';
             // for (let i = 0; i < gameState.word.length; i++) {
@@ -399,9 +416,14 @@ export default function GameBoard() {
             localStorage.setItem("game-progress", JSON.stringify(newGameState));
 
             if (newGameState.rowIndex === 6) {
-                cogoToast.info('better luck next time :/', {
+                cogoToast.info(` ${sol_word.toUpperCase()}`, {
                     position: 'top-center'
                 });
+                setTimeout(function () {
+                    cogoToast.info(`better luck next time :/`, {
+                        position: 'top-center'
+                    });
+                }, 4500)
             }
 
             debugger
@@ -441,7 +463,24 @@ export default function GameBoard() {
     }
 
 
+    function resetGame(){
+        let newGameState = {
+            ...gameState,
+            guessWords: [],
+            guessColors: [],
+            rowIndex: 0,
+            gameStatus: "",
+            presentArray: [],
+            correctArray: [],
+            absentArray: [],
+            word: "",
+            solution_word : getRandomWord(0, answerList.length-1)
+        }
+        setGameState(newGameState);
+        localStorage.setItem('game-progress', JSON.stringify(newGameState));
+    }
 
+  
 
     // useEffect(function(){
     //     enterCurrentText(word)
@@ -461,11 +500,11 @@ export default function GameBoard() {
         <motion.div className="select-none dark:bg-black h-full transition-colors duration-500" >
             {showInfo && <Modal close={closeInfo} />}
             {showDetails && <Details close={closeDetails} showGithub={openGithub}/>}
-            <Header className="header" showInfo={openInfo} showDetails={openDetails}/>
+            <Header className="header" showInfo={openInfo} showDetails={openDetails} reset={resetGame}/>
             {gameState && (gameState.gameStatus) && (gameState.gameStatus === "WON") && <Confetti
                 width={width}
                 height={height}
-                numberOfPieces={1000}
+                numberOfPieces={250}
                 recycle={false}
             />}
             <div className='flex flex-col justify-around items-center flex-container xl:mt-4'>
