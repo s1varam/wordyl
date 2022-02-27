@@ -402,7 +402,7 @@ export default function GameBoard() {
             //     }
 
             let result = assess(sol_word, gameState.word);
-            console.log(result);
+            // console.log(result);
 
             let colors = "";
 
@@ -520,8 +520,8 @@ export default function GameBoard() {
 
 
 
-    console.log("state......");
-    console.log(gameState);
+    // console.log("state......");
+    // console.log(gameState);
 
     return (
         <motion.div className="select-none dark:bg-black h-full transition-colors duration-500" >
@@ -540,9 +540,9 @@ export default function GameBoard() {
                 <div className='flex-col xl:mb-4 xl:mt-6'>
                     {
                         [0, 1, 2, 3, 4, 5].map((row, item) => {
-                            return <div className='flex gap-2 mt-2'>{[0, 1, 2, 3, 4].map((column, i) => {
-                                return <motion.div className='border border-solid '>
-                                    <LetterTile className="" letter={gameState && gameState.guessWords[row] && gameState.guessWords[row][column]} colorstate={gameState && gameState.guessColors[row] && gameState.guessColors[row][column]} />
+                            return <div className='flex gap-2 mt-2' key={item}>{[0, 1, 2, 3, 4].map((column, i) => {
+                                return <motion.div className='border border-solid ' key={i}>
+                                    <LetterTile className=""  letter={gameState && gameState.guessWords[row] && gameState.guessWords[row][column]} colorstate={gameState && gameState.guessColors[row] && gameState.guessColors[row][column]} />
                                 </motion.div>
                             })}
                             </div>

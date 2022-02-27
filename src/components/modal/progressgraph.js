@@ -66,8 +66,8 @@ export default function ProgressGraph(props) {
     const x6 = props.data[6] ? props.data[6] : 0
 
     const data_array = [x1, x2, x3, x4, x5, x6];
-    console.log("data...........");
-    console.log(data_array);
+    // console.log("data...........");
+    // console.log(data_array);
 
     const data = {
         labels,
@@ -97,7 +97,7 @@ export default function ProgressGraph(props) {
                         </div>
                     </div>
                     <Bar options={options} data={data} className="bar-chart" />
-                    <button class="px-3 py-1 rounded-md text-xs border-keyAbsent text-keyAbsent border-solid border mt-4 self-center" onClick={() => props.close()}>CLOSE</button>
+                    <button className="px-3 py-1 rounded-md text-xs border-keyAbsent text-keyAbsent border-solid border mt-4 self-center" onClick={() => props.close()}>CLOSE</button>
                 </div>
             </div>}
         </>

@@ -17,7 +17,7 @@ function LetterTile({ letter, colorstate }) {
     }
 
     return (
-        <div className={`tile-box w-12 h-12 xl:w-14 flex justify-center items-center flex-wrap xl:h-14 error ${colorClass} animate__pulse animate__animated animate__delay-2s`} transition-colors duration-500>
+        <div className={`tile-box w-12 h-12 xl:w-14 flex justify-center items-center flex-wrap xl:h-14 error ${colorClass} animate__pulse animate__animated animate__delay-2s`} >
             <div  className={` keytile text-4xl font-bold dark:text-white ${colorClass}`}>{letter && letter.toUpperCase()}</div>
         </div>
 
