@@ -1,18 +1,18 @@
-.keyboard-rows{
+/* .keyboard-rows{
     display: flex;
     flex-direction: column;
     gap: 8px;
     align-items: center;
     margin-bottom: 10px;
-}
-.row{
+} */
+/* .row{
     width: auto;
     display: flex;
     flex-direction: row;
     gap: 5px;
-}
+} */
 
-button{
+/* button{
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
@@ -20,8 +20,8 @@ button{
     padding: 22px 18px;
     border: none;
     text-transform: uppercase;
-}
-.key-correct{
+} */
+/* .key-correct{
     background: #6aaa64;
     color: #fff;
 }
@@ -34,4 +34,8 @@ button{
 .key-absent{
     background: #787c7e;
     color: #fff;
+} */
+
+.key-tile{
+    min-width: 30px;
 }
