@@ -14,58 +14,58 @@ export default function Modal(props) {
                     <p className="font-bold mt-2">Examples</p>
                     <div className="flex justify-center items-center gap-2 mt-4 font-bold text-lg">
                         <div className="flex justify-center items-center w-10 h-10 border-keyCorrect bg-keyCorrect border-2 text-white">
-                            <div>W</div>
-                        </div>
-                        <div className="flex justify-center items-center w-10 h-10  border-keyboardBg border-2">
-                            <div>E</div>
-                        </div>
-                        <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
                             <div>A</div>
                         </div>
-                        <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
-                            <div>R</div>
+                        <div className="flex justify-center items-center w-10 h-10  border-keyboardBg border-2">
+                            <div>D</div>
                         </div>
                         <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
-                            <div>Y</div>
-                        </div>
-                    </div>
-                    <p className="text-justify mt-2">The letter <span className="font-bold">W</span> is in the word and in the correct spot.</p>
-                    <div className="flex justify-center items-center gap-2 mt-4 font-bold text-lg">
-                        <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2 ">
-                            <div>P</div>
-                        </div>
-                        <div className="flex justify-center items-center w-10 h-10  border-keyPresent bg-keyPresent border-2 text-white">
                             <div>I</div>
                         </div>
                         <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
-                            <div>L</div>
+                            <div>E</div>
                         </div>
                         <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
-                            <div>L</div>
-                        </div>
-                        <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
-                            <div>S</div>
+                            <div>U</div>
                         </div>
                     </div>
-                    <p className="text-justify mt-2">The letter <span className="font-bold">I</span> is in the word but in the wrong spot.</p>
+                    <p className="text-justify mt-2">The letter <span className="font-bold">A</span> is in the word and in the correct spot.</p>
+                    <div className="flex justify-center items-center gap-2 mt-4 font-bold text-lg">
+                        <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2 ">
+                            <div>A</div>
+                        </div>
+                        <div className="flex justify-center items-center w-10 h-10  border-keyPresent bg-keyPresent border-2 text-white">
+                            <div>U</div>
+                        </div>
+                        <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
+                            <div>D</div>
+                        </div>
+                        <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
+                            <div>I</div>
+                        </div>
+                        <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
+                            <div>O</div>
+                        </div>
+                    </div>
+                    <p className="text-justify mt-2">The letter <span className="font-bold">U</span> is in the word but in the wrong spot.</p>
                     <div className="flex justify-center items-center gap-2 mt-4 font-bold text-lg">
                         <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
-                            <div>V</div>
+                            <div>R</div>
                         </div>
                         <div className="flex justify-center items-center w-10 h-10  border-keyboardBg border-2">
                             <div>A</div>
                         </div>
                         <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
-                            <div>G</div>
+                            <div>D</div>
                         </div>
                         <div className="flex justify-center items-center w-10 h-10 border-keyboardBg bg-keyAbsent border-2 text-white">
-                            <div>U</div>
+                            <div>I</div>
                         </div>
                         <div className="flex justify-center items-center w-10 h-10 border-keyboardBg border-2">
-                            <div>E</div>
+                            <div>O</div>
                         </div>
                     </div>  
-                    <p className="text-justify mt-2">The letter <span className="font-bold">U</span> is not in the word in any spot.</p>
+                    <p className="text-justify mt-2">The letter <span className="font-bold">I</span> is not in the word in any spot.</p>
                     <div className="border-t" />
                     <p className="mt-6 font-bold">You can play WORDYL unlimited times in a day by hitting the reset button!</p>
                     <button class="px-4 py-2 rounded-md text-md border-keyAbsent text-keyAbsent border-solid border mt-4 self-center" onClick={() => props.close()}>CLOSE</button>
