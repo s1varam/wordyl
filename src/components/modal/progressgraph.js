@@ -75,8 +75,8 @@ export default function ProgressGraph(props) {
             {
                 label: 'Guess count',
                 data: data_array,
-                borderColor: '#212121',
-                backgroundColor: '#424242',
+                borderColor: '#43A047',
+                backgroundColor: '#AED581',
             },
         ],
     };

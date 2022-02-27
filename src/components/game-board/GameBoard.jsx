@@ -541,7 +541,7 @@ export default function GameBoard() {
                     {
                         [0, 1, 2, 3, 4, 5].map((row, item) => {
                             return <div className='flex gap-2 mt-2'>{[0, 1, 2, 3, 4].map((column, i) => {
-                                return <motion.div className='border border-solid border-black dark:border-white'>
+                                return <motion.div className='border border-solid '>
                                     <LetterTile className="" letter={gameState && gameState.guessWords[row] && gameState.guessWords[row][column]} colorstate={gameState && gameState.guessColors[row] && gameState.guessColors[row][column]} />
                                 </motion.div>
                             })}

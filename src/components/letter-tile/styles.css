@@ -4,17 +4,17 @@
 }
 
 .tile-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 60px;
-    height: 60px;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* flex-wrap: wrap; */
+    /* width: 50px;
+    height: 50px; */
     /* border: solid 1px #000; */
 }
 
 .test-anim {
-    transform: scale(2);
+    /* transform: scale(2); */
     /* animation: 2s ease; */
 } 
 
