@@ -18,17 +18,6 @@ import ProgressGraph from '../modal/progressgraph'
 
 export default function GameBoard() {
 
-    
-
-    // function generateRandomNumber(min, max) { // min and max included 
-    //     return Math.floor(Math.random() * (max - min + 1) + min)
-    // }
-
-    // const index = generateRandomNumber(0, answerList.length-1)
-    // console.log(answerList[index]);
-
-    // const solution_word = answerList[index];
-
     const { width, height } = useWindowDimensions();
 
     const [gameState, setGameState] = useState(JSON.parse(localStorage.getItem('game-progress')));
@@ -55,17 +44,6 @@ export default function GameBoard() {
             localStorage.setItem('game-progress', JSON.stringify(newGameState));
         }
     }, [])
-
-    // const [gameState, setGameState] = useState({
-    //     guessWords: [],
-    //     guessColors: [],
-    //     rowIndex: 0,
-    //     gameStatus: "",
-    //     presentArray: [],
-    //     correctArray: [],
-    //     absentArray: [],
-    //     word: "",
-    // })
 
     const [showInfo, setShowInfo] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
@@ -98,9 +76,6 @@ export default function GameBoard() {
     function openGithub(){
         window.open('https://github.com/s1varam/wordl');
     }
-
-
-    // const [word, setWord] = useState("")
 
     function handleKeyPress(char) {
         // alert(char);
@@ -138,7 +113,6 @@ export default function GameBoard() {
             return;
         } else {
             let wordTest = ""
-            // setGameState(function (prev) {
             debugger
             if (gameState.word === "") {
                 wordTest = char;
@@ -148,11 +122,6 @@ export default function GameBoard() {
 
             // console.log(word);
             enterCurrentText(wordTest)
-            // setGameState(function(prev){
-            //     return {
-            //         guessWords : word
-            //     }
-            // })
         }
     }
 
@@ -256,151 +225,12 @@ export default function GameBoard() {
             setTimeout(function () {
                 setShowProgressGraph(true);
             }, 3500)
-            
-           
-            // setGameState(function (prev) {
-            //     return {
-            //         ...prev,
-            //         guessColors: [...prev.guessColors, colors],
-            //         gameStatus: "WON"
-            //     }
-            // })
 
             // alert("success");
         } else if (fiveLetterWords.includes(gameState.word)) {
             // } else if (true) {
 
             let sol_word = gameState.solution_word;
-
-            // let colors = '';
-            // for (let i = 0; i < gameState.word.length; i++) {
-            //     debugger
-            //     if (gameState.word[i] === sol_word[i]) {
-            //         colors += 'g'
-            //     } else if (sol_word.includes(gameState.word[i])) {
-
-            //         let sol_freq = 0;
-            //         let word_freq = 0;
-
-            //         for (let j = 0; j < sol_word.length; j++) {
-            //             if (sol_word[j] === gameState.word[i]) {
-            //                 sol_freq += 1;
-            //             }
-            //         }
-
-            //         let pos_array = []
-            //         for (let k = i; k < gameState.word.length; k++) {
-            //             if (gameState.word[k] === gameState.word[i]) {
-            //                 word_freq += 1;
-            //                 pos_array.push(k)
-            //             }
-            //         }
-
-            //         console.log("-----------posarray------------");
-            //         console.log(pos_array);
-
-            //         debugger
-
-            //         // if (word_freq >= sol_freq) {
-            //         //     let append = ''
-            //         //     for (let x = i; x < sol_word.length; x++) {
-            //         //         if (sol_word[x] === gameState.word[i]) {
-            //         //             append = 'y';
-            //         //             break;
-            //         //         } else {
-            //         //             append = 'b';
-            //         //         }
-            //         //     }
-
-            //         //     colors += append;
-            //         // } else {
-            //         //     colors += 'b'
-            //         // }
-
-            //         if (word_freq > sol_freq) {
-            //             let append = ''
-            //             let itr = 0
-            //             for (let x = i; x < pos_array.length + i; x++) {
-            //                 if (gameState.word[pos_array[itr]] === sol_word[pos_array[itr]]) {
-            //                     append = 'b'
-            //                     break;
-            //                 } else {
-            //                     append = 'y'
-            //                 }
-            //                 itr+=1;
-            //             }
-            //             colors += append;
-            //         } else if (word_freq === sol_freq) {
-
-            //             let append = '';
-            //             let proceed = true;
-
-            //             for(let z=0;z<i;z++){
-            //                 if(gameState.word[z] === gameState.word[i]){
-            //                     append = 'b'
-            //                     proceed = false;
-            //                     break;
-            //                 }
-            //             }
-
-
-            //             if (proceed && gameState.word[i] === sol_word[i]) {
-            //                 append = 'g'
-            //             } else if(proceed){
-            //                 append = 'y'
-            //             }
-            //             colors += append;
-            //         } else if (word_freq < sol_freq) {
-            //             colors += 'y';
-            //         }
-
-            //         console.log(`i----${i}-----color${colors}`)
-
-
-            //         // let append = ''
-            //         // for(let x=i;x<sol_word.length;x++){
-            //         //     if(sol_word[x] === gameState.word[i]){
-            //         //         append = 'y';
-            //         //         break;
-            //         //     }else{
-            //         //         append = 'b';
-            //         //     }
-            //         // }
-
-            //         // colors +=append;
-
-            //         // if(sol_freq >= word_freq){
-            //         //     colors += 'y'
-            //         // }else{
-            //         //     colors += 'b'
-            //         // }
-
-            //         // debugger
-            //         // let flag= 0 ;
-            //         // for(let x=i; x<=gameState.word.length;x++){
-            //         //     for(let y=i;y<sol_word.length;y++){
-            //         //         if(gameState.word[x]===sol_word[y]){
-            //         //             colors += 'y';
-            //         //             flag = 1;
-            //         //             break;
-            //         //         }else{
-            //         //             colors += 'b'
-            //         //         }
-            //         //     }
-
-            //         //     if(flag===1){
-            //         //         break;
-            //         //     }
-            //         // }
-
-            //         console.log(`-------${gameState.word[i]}----${sol_freq}---${word_freq}---`)
-
-            //         // sol_word = sol_word.replace(sol_word[i], '0')
-            //         // colors += 'y'
-            //     } else {
-            //         colors += 'b'
-            //     }
-
             let result = assess(sol_word, gameState.word);
             // console.log(result);
 
@@ -454,33 +284,6 @@ export default function GameBoard() {
             }
 
             debugger
-            // setGameState(function (prev) {
-
-            //     return {
-            //         ...prev,
-            //         guessColors: [...prev.guessColors, colors],
-            //         correctArray: [...prev.correctArray, ...corrArray],
-            //         presentArray: [...prev.presentArray, ...presArray],
-            //         absentArray: [...prev.absentArray, ...absArray],
-            //         rowIndex: count + 1,
-            //         word: ""
-            //     }
-            // })
-
-            // setGameState(function (prev) {
-            //     let count = prev.rowIndex;
-            //     return {
-            //         ...prev,
-            //         rowIndex: count + 1
-            //     }
-            // })
-            // setGameState(function (prev) {
-            //     return {
-            //         ...prev,
-            //         word: ""
-            //     }
-            // })
-            // localStorage.setItem("game-progress", JSON.stringify(gameState));
         } else {
             cogoToast.info('not a valid word', {
                 position: 'top-center'
@@ -506,22 +309,6 @@ export default function GameBoard() {
         setGameState(newGameState);
         localStorage.setItem('game-progress', JSON.stringify(newGameState));
     }
-
-  
-
-    // useEffect(function(){
-    //     enterCurrentText(word)
-    // }, [word]);
-
-    // useEffect(() => {
-    //     console.log(gameState.word);
-    //     enterCurrentText(gameState.word);
-    // }, [gameState.word]);
-
-
-
-    // console.log("state......");
-    // console.log(gameState);
 
     return (
         <motion.div className="select-none dark:bg-black h-full transition-colors duration-500" >

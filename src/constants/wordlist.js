@@ -1,29 +1,3 @@
-// const defaultMessage = ' Using word of the day instead.'
-
-// export function getWordOfTheDay() {
-//   if (location.search) {
-//     try {
-//       const query = atob(location.search.slice(1))
-//       if (query.length !== 5) {
-//         alert(`Incorrect word length from encoded query. ${defaultMessage}`)
-//       } else {
-//         return query
-//       }
-//     } catch (e) {
-//       alert(`Malformed encoded word query. ${defaultMessage}`)
-//     }
-//   }
-
-//   const now = new Date()
-//   const start = new Date(2022, 0, 0)
-//   const diff = Number(now) - Number(start)
-//   let day = Math.floor(diff / (1000 * 60 * 60 * 24))
-//   while (day > answers.length) {
-//     day -= answers.length
-//   }
-//   return answers[day]
-// }
-
 export function getRandomWord(min, max) { // min and max included 
   let index = Math.floor(Math.random() * (max - min + 1) + min)
    
@@ -31,7 +5,7 @@ export function getRandomWord(min, max) { // min and max included
 
 }
 
-
+//6 letter words
 const sixLetterWordsList = (`
 abacus
 abased
@@ -2537,7 +2511,7 @@ zoning
 
 const sixLetterWordsArray = sixLetterWordsList.split('\n');
 
-// copied from Wordle source
+// 5 letter words
 const answers = [
   'cigar',
   'rebut',
@@ -4856,6 +4830,7 @@ const answers = [
   'shave'
 ]
 
+// 5 letter words
 const allowedGuesses = [
   'aahed',
   'aalii',
