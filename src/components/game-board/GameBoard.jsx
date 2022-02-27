@@ -253,6 +253,11 @@ export default function GameBoard() {
             setGameState(newGameState);
             localStorage.setItem("game-progress", JSON.stringify(newGameState));
 
+            setTimeout(function () {
+                setShowProgressGraph(true);
+            }, 3500)
+            
+           
             // setGameState(function (prev) {
             //     return {
             //         ...prev,
