@@ -17,13 +17,3 @@ body{
 #root{
     height: 100vh;
 }
-
-.box-tile{
-    /* background-color: aliceblue; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border: solid 1px #000;
-}
