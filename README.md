@@ -44,3 +44,4 @@ WORDYL is a simple Wordle clone, built with [React](https://reactjs.org/) and [T
 
 Contributions, issues and feature requests are always welcome!
 Star the repo if you like this project :)
+This repository is open sourced for learning purposes only.
